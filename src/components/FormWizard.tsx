@@ -86,7 +86,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           />
         );
       case 5:
-        return <StepConfirmation confirmClose={destination.confirmClose} />;
+        return <StepConfirmation confirmClose={destination.confirmClose} formState={state} destinationLabel={destination.label} />;
       default:
         return null;
     }
