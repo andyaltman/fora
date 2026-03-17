@@ -145,7 +145,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
               marginBottom: '2rem',
             }}
           >
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
               <Image
                 src="/itrvl-wilderness-logo.png"
                 alt="itrvl × Wilderness"
@@ -156,8 +156,6 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
               />
               {destination.label && (
                 <div style={{
-                  display: 'inline-block',
-                  marginTop: '0.75rem',
                   fontFamily: 'var(--font-body)',
                   fontSize: '0.65rem',
                   fontWeight: '600',
