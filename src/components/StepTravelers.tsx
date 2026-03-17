@@ -143,7 +143,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
   };
 
   const showAdults = travelers.types.length > 0;
-  const showChildren = travelers.types.includes('FAMILY');
+  const showChildren = travelers.types.some(t => !['SOLO', 'COUPLE'].includes(t));
 
   const microLabel: React.CSSProperties = {
     display: 'block',
