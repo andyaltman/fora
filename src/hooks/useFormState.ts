@@ -15,6 +15,7 @@ const initialState: FormState = {
     types: [],
     adults: 0,
     children: 0,
+    childAges: [],
   },
   budget: {
     perPerson: '',

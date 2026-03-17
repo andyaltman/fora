@@ -12,6 +12,7 @@ export interface Travelers {
   types: string[];
   adults: number;
   children: number;
+  childAges: number[];
 }
 
 export interface Budget {
