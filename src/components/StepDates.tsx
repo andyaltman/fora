@@ -186,14 +186,40 @@ export default function StepDates({ dates, onChange, subtitle = 'Help us plan th
 
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={microLabel}>TRAVEL YEAR</label>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
               {years.map((year) => (
-                <PillButton
+                <button
                   key={year}
-                  label={year}
-                  selected={dates.year === year}
                   onClick={() => handleYearSelect(year)}
-                />
+                  style={{
+                    flex: 1,
+                    padding: '1rem',
+                    borderRadius: '999px',
+                    border: dates.year === year ? '1px solid var(--accent)' : '1px solid var(--border-default)',
+                    background: dates.year === year ? 'var(--accent-bg)' : 'transparent',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: dates.year === year ? '600' : '500',
+                    fontSize: '1.1rem',
+                    letterSpacing: '0.04em',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (dates.year !== year) {
+                      e.currentTarget.style.borderColor = 'var(--border-hover)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (dates.year !== year) {
+                      e.currentTarget.style.borderColor = 'var(--border-default)';
+                      e.currentTarget.style.background = 'transparent';
+                    }
+                  }}
+                >
+                  {year}
+                </button>
               ))}
             </div>
           </div>
