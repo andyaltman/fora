@@ -1,0 +1,24 @@
+:root {
+  --bg-primary: #123438;
+  --bg-card: #1a4044;
+  --border-default: #2a5054;
+  --accent: #c64b00;
+  --accent-bg: rgba(198, 75, 0, 0.25);
+  --hover-bg: #1a5054;
+  --hover-border: #3a6064;
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+}
