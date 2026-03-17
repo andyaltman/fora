@@ -78,7 +78,10 @@ export function useFormState() {
         return null;
       }
       case 2: {
-        const { types, adults } = state.travelers;
+        const { partyName, types, adults } = state.travelers;
+        if (!partyName.trim()) {
+          return 'Please enter a party name';
+        }
         if (types.length === 0) {
           return 'Please select at least one traveler type';
         }

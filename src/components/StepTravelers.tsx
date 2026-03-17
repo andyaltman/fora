@@ -60,10 +60,11 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
 
       <div style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
         <TextInput
-          label="Party Name (Optional)"
+          label="Party Name"
           value={travelers.partyName}
           onChange={(v) => onChange({ partyName: v })}
           placeholder="e.g., The Smith Family"
+          required
         />
       </div>
 
