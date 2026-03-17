@@ -13,14 +13,26 @@ export default function StepDetails({ contact, onChange, error }: StepDetailsPro
       <h2
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '1.6rem',
+          fontSize: '1.7rem',
           fontWeight: '400',
           color: 'var(--text-primary)',
-          marginBottom: '1.5rem',
+          marginBottom: '0.5rem',
+          lineHeight: '1.2',
+          textAlign: 'center',
         }}
       >
-        Contact Details
+        Your Details
       </h2>
+      <p style={{
+        fontFamily: 'var(--font-body)',
+        fontWeight: '300',
+        fontSize: '0.875rem',
+        color: 'var(--text-muted)',
+        marginBottom: '2rem',
+        textAlign: 'center',
+      }}>
+        We&apos;ll be in touch within 1–2 business days
+      </p>
 
       <TextInput
         label="Name"

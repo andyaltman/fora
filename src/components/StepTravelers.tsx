@@ -35,20 +35,30 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
   const showChildren = travelers.types.includes('FAMILY');
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h2
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '1.6rem',
+          fontSize: '1.7rem',
           fontWeight: '400',
           color: 'var(--text-primary)',
-          marginBottom: '1.5rem',
+          marginBottom: '0.5rem',
+          lineHeight: '1.2',
         }}
       >
         Who is Traveling?
       </h2>
+      <p style={{
+        fontFamily: 'var(--font-body)',
+        fontWeight: '300',
+        fontSize: '0.875rem',
+        color: 'var(--text-muted)',
+        marginBottom: '2rem',
+      }}>
+        Tell us about the travel party
+      </p>
 
-      <div style={{ marginBottom: '1.5rem' }}>
+      <div style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
         <TextInput
           label="Party Name (Optional)"
           value={travelers.partyName}
@@ -68,6 +78,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
             color: 'var(--text-sage)',
+            textAlign: 'center',
           }}
         >
           TRAVELER TYPE
@@ -85,7 +96,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
       </div>
 
       {showAdults && (
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1rem', textAlign: 'left' }}>
           <label
             style={{
               display: 'block',
@@ -98,7 +109,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
               color: 'var(--text-sage)',
             }}
           >
-            NUMBER OF ADULTS
+            NUMBER OF ADULTS (13+)
           </label>
           <input
             type="number"
@@ -107,7 +118,6 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
             onChange={(e) => onChange({ adults: parseInt(e.target.value) || 0 })}
             style={{
               width: '100%',
-              minWidth: '80px',
               padding: '11px 14px',
               borderRadius: '8px',
               border: '1px solid var(--border-default)',
@@ -116,13 +126,14 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
               fontSize: '0.875rem',
               fontFamily: 'var(--font-body)',
               fontWeight: '300',
+              outline: 'none',
             }}
           />
         </div>
       )}
 
       {showChildren && (
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1rem', textAlign: 'left' }}>
           <label
             style={{
               display: 'block',
@@ -135,7 +146,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
               color: 'var(--text-sage)',
             }}
           >
-            NUMBER OF CHILDREN
+            NUMBER OF CHILDREN (2–12)
           </label>
           <input
             type="number"
@@ -144,7 +155,6 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
             onChange={(e) => onChange({ children: parseInt(e.target.value) || 0 })}
             style={{
               width: '100%',
-              minWidth: '80px',
               padding: '11px 14px',
               borderRadius: '8px',
               border: '1px solid var(--border-default)',
@@ -153,6 +163,7 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
               fontSize: '0.875rem',
               fontFamily: 'var(--font-body)',
               fontWeight: '300',
+              outline: 'none',
             }}
           />
         </div>

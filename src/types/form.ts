@@ -1,9 +1,9 @@
 export interface TravelDates {
-  hasFixedDates: boolean;
+  hasFixedDates: boolean | null;  // null = mode not yet chosen
   startDate: string;
   endDate: string;
   year: string | null;
-  month: string | null;
+  months: string[];               // multi-select
   undecided: boolean;
 }
 

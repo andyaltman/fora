@@ -3,11 +3,11 @@ import type { FormState, FormAction } from '@/types/form';
 
 const initialState: FormState = {
   travelDates: {
-    hasFixedDates: false,
+    hasFixedDates: null,
     startDate: '',
     endDate: '',
     year: null,
-    month: null,
+    months: [],
     undecided: false,
   },
   travelers: {
@@ -62,14 +62,17 @@ export function useFormState() {
   const validate = (step: number): string | null => {
     switch (step) {
       case 1: {
-        const { hasFixedDates, startDate, endDate, year, month, undecided } = state.travelDates;
+        const { hasFixedDates, startDate, endDate, year, months, undecided } = state.travelDates;
+        if (hasFixedDates === null) {
+          return 'Please select when the client would like to travel';
+        }
         if (hasFixedDates) {
           if (!startDate || !endDate) {
             return 'Please select both start and end dates';
           }
         } else {
-          if (!undecided && (!year || !month)) {
-            return 'Please select a year and month, or mark as undecided';
+          if (!undecided && (!year || months.length === 0)) {
+            return 'Please select a year and at least one month, or mark as undecided';
           }
         }
         return null;
