@@ -5,6 +5,7 @@ import PillGrid from './PillGrid';
 interface StepDatesProps {
   dates: TravelDates;
   onChange: (d: Partial<TravelDates>) => void;
+  subtitle?: string;
 }
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
@@ -33,7 +34,7 @@ const modeButtonSelectedStyle = {
   border: '1px solid var(--accent)',
 };
 
-export default function StepDates({ dates, onChange }: StepDatesProps) {
+export default function StepDates({ dates, onChange, subtitle = 'Help us plan the perfect trip' }: StepDatesProps) {
   const handleMonthToggle = (month: string) => {
     const current = dates.months;
     const next = current.includes(month)
@@ -96,7 +97,7 @@ export default function StepDates({ dates, onChange }: StepDatesProps) {
         color: 'var(--text-muted)',
         marginBottom: '2rem',
       }}>
-        Help us plan the perfect trip
+        {subtitle}
       </p>
 
       {/* Mode selection — shown until a mode is chosen */}

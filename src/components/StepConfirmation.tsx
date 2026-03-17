@@ -12,7 +12,11 @@ interface Particle {
   rotationSpeed: number;
 }
 
-export default function StepConfirmation() {
+interface StepConfirmationProps {
+  confirmClose?: string;
+}
+
+export default function StepConfirmation({ confirmClose = 'Your Travel Designer will be in touch within 1–2 business days.' }: StepConfirmationProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -119,7 +123,7 @@ export default function StepConfirmation() {
             margin: '0 auto',
           }}
         >
-          We&apos;ll send a confirmation email shortly. Your Travel Designer will be in touch within 1–2 business days.
+          We&apos;ll send a confirmation email shortly. {confirmClose}
         </p>
       </div>
     </div>

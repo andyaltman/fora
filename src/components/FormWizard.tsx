@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useFormState } from '@/hooks/useFormState';
 import { submitEnquiry } from '@/lib/submitEnquiry';
+import { getDestination } from '@/lib/destinations';
 import ProgressBar from './ProgressBar';
 import StepDates from './StepDates';
 import StepTravelers from './StepTravelers';
@@ -15,6 +16,7 @@ interface FormWizardProps {
 }
 
 export default function FormWizard({ itinerary }: FormWizardProps) {
+  const destination = getDestination(itinerary);
   const [currentStep, setCurrentStep] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -58,6 +60,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           <StepDates
             dates={state.travelDates}
             onChange={(payload) => dispatch({ type: 'SET_TRAVEL_DATES', payload })}
+            subtitle={destination.subtitle}
           />
         );
       case 2:
@@ -83,7 +86,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           />
         );
       case 5:
-        return <StepConfirmation />;
+        return <StepConfirmation confirmClose={destination.confirmClose} />;
       default:
         return null;
     }
@@ -97,17 +100,40 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem',
+        position: 'relative',
+        ...(destination.bgImage ? {
+          backgroundImage: `url(${destination.bgImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        } : {}),
       }}
     >
+      {/* Overlay tint for bg images */}
+      {destination.bgImage && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(18, 52, 56, 0.68)',
+          zIndex: 0,
+        }} />
+      )}
       <div
         style={{
+          position: 'relative',
+          zIndex: 1,
           width: '100%',
           maxWidth: '520px',
-          background: 'var(--bg-card)',
+          background: destination.bgImage
+            ? 'rgba(26, 64, 68, 0.88)'
+            : 'var(--bg-card)',
           borderRadius: '3px',
           border: '1px solid var(--border-default)',
           padding: '2rem 2.25rem',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          boxShadow: destination.bgImage
+            ? '0 8px 40px rgba(0,0,0,0.5)'
+            : '0 4px 12px rgba(0, 0, 0, 0.3)',
+          backdropFilter: destination.bgImage ? 'blur(2px)' : 'none',
         }}
       >
         {currentStep < 5 && (
@@ -128,6 +154,23 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                 style={{ maxWidth: '100%', height: 'auto', opacity: 0.92 }}
                 priority
               />
+              {destination.label && (
+                <div style={{
+                  display: 'inline-block',
+                  marginTop: '0.75rem',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.65rem',
+                  fontWeight: '600',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--accent)',
+                  border: '1px solid var(--accent)',
+                  borderRadius: '999px',
+                  padding: '0.25rem 0.85rem',
+                }}>
+                  {destination.label}
+                </div>
+              )}
             </div>
             <ProgressBar currentStep={currentStep} />
           </div>
