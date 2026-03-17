@@ -1,13 +1,63 @@
+/* Font declarations */
+@font-face {
+  font-family: 'Athelas';
+  src: url('/fonts/Athelas/Athelas-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Athelas';
+  src: url('/fonts/Athelas/Athelas-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Athelas';
+  src: url('/fonts/Athelas/Athelas-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Atyp Display';
+  src: url('/fonts/Atyp/AtypDisplay-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Atyp Display';
+  src: url('/fonts/Atyp/AtypDisplay-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Atyp Display';
+  src: url('/fonts/Atyp/AtypDisplay-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* CSS variables — dark adaptation of itrvl brand */
 :root {
-  --bg-primary: #123438;
-  --bg-card: #1a4044;
+  --font-display: 'Athelas', Georgia, serif;
+  --font-body: 'Atyp Display', system-ui, sans-serif;
+
+  /* Dark bg — keep existing dark palette but align accent to brand orange */
+  --bg-primary: #123438;       /* deep green — page bg */
+  --bg-card: #1a4044;          /* card bg */
+  --bg-elevated: #1e484c;      /* hover/elevated */
   --border-default: #2a5054;
-  --accent: #c64b00;
-  --accent-bg: rgba(198, 75, 0, 0.25);
-  --hover-bg: #1a5054;
-  --hover-border: #3a6064;
-  --text-primary: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-hover: #3a6064;
+  --accent: #FF6E00;           /* brand orange */
+  --accent-hover: #e06200;
+  --accent-bg: rgba(255, 110, 0, 0.18);
+  --text-primary: #FAF8F4;     /* brand off-white */
+  --text-muted: rgba(250, 248, 244, 0.55);
+  --text-sage: #6B7F5E;        /* for micro-labels on dark */
 }
 
 * {
@@ -19,6 +69,24 @@
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-body);
+  font-weight: 300;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* fadeInUp animation from style guide */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.3s ease forwards;
 }

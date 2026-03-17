@@ -21,11 +21,32 @@ const tiers = ['VALUE', 'MEDIUM', 'HIGH'];
 export default function StepBudget({ budget, onChange }: StepBudgetProps) {
   return (
     <div>
-      <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: '600' }}>Budget</h2>
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.6rem',
+          fontWeight: '400',
+          color: 'var(--text-primary)',
+          marginBottom: '1.5rem',
+        }}
+      >
+        Budget
+      </h2>
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Per Person Budget
+        <label
+          style={{
+            display: 'block',
+            marginBottom: '0.75rem',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.68rem',
+            fontWeight: '600',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'var(--text-sage)',
+          }}
+        >
+          PER PERSON BUDGET
         </label>
         <PillGrid>
           {budgetRanges.map((range) => (
@@ -40,8 +61,19 @@ export default function StepBudget({ budget, onChange }: StepBudgetProps) {
       </div>
 
       <div>
-        <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Tier
+        <label
+          style={{
+            display: 'block',
+            marginBottom: '0.75rem',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.68rem',
+            fontWeight: '600',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'var(--text-sage)',
+          }}
+        >
+          TIER
         </label>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           {tiers.map((tier) => (

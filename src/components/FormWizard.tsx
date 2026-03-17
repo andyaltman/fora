@@ -103,8 +103,9 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           width: '100%',
           maxWidth: '520px',
           background: 'var(--bg-card)',
-          borderRadius: '16px',
-          padding: '2rem',
+          borderRadius: '3px',
+          border: '1px solid var(--border-default)',
+          padding: '2rem 2.25rem',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
         }}
       >
@@ -112,24 +113,29 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              flexDirection: 'column',
+              gap: '1.5rem',
               marginBottom: '2rem',
             }}
           >
-            <div style={{ fontSize: '1.25rem', fontWeight: '700', letterSpacing: '0.05em' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.4rem',
+                fontWeight: '400',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-primary)',
+                textAlign: 'center',
+              }}
+            >
               FORA
             </div>
             <ProgressBar currentStep={currentStep} />
           </div>
         )}
 
-        <div
-          style={{
-            opacity: 1,
-            transition: 'opacity 0.3s',
-          }}
-        >
+        <div className="fade-in-up">
           {renderStep()}
         </div>
 
@@ -164,26 +170,27 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                   onClick={handleBack}
                   disabled={isSubmitting}
                   style={{
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '8px',
+                    background: 'none',
                     border: '1px solid var(--border-default)',
-                    background: 'transparent',
                     color: 'var(--text-muted)',
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    borderRadius: '3px',
+                    padding: '0.75rem 1.5rem',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: '400',
                     fontSize: '0.875rem',
-                    fontWeight: '500',
-                    transition: 'all 0.2s',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.15s',
                   }}
                   onMouseEnter={(e) => {
                     if (!isSubmitting) {
-                      e.currentTarget.style.background = 'var(--hover-bg)';
-                      e.currentTarget.style.borderColor = 'var(--hover-border)';
+                      e.currentTarget.style.borderColor = 'var(--border-hover)';
+                      e.currentTarget.style.color = 'var(--text-primary)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSubmitting) {
-                      e.currentTarget.style.background = 'transparent';
                       e.currentTarget.style.borderColor = 'var(--border-default)';
+                      e.currentTarget.style.color = 'var(--text-muted)';
                     }
                   }}
                 >
@@ -196,25 +203,27 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                 disabled={isSubmitting}
                 style={{
                   flex: currentStep === 1 ? 1 : 0,
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid var(--accent)',
                   background: 'var(--accent)',
-                  color: 'var(--text-primary)',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  color: '#FAF8F4',
+                  border: 'none',
+                  borderRadius: '3px',
+                  padding: '0.75rem 2rem',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: '500',
                   fontSize: '0.875rem',
-                  fontWeight: '600',
-                  transition: 'all 0.2s',
+                  letterSpacing: '0.04em',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  transition: 'background 0.15s',
                   marginLeft: currentStep === 1 ? 0 : 'auto',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitting) {
-                    e.currentTarget.style.opacity = '0.9';
+                    e.currentTarget.style.background = 'var(--accent-hover)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isSubmitting) {
-                    e.currentTarget.style.opacity = '1';
+                    e.currentTarget.style.background = 'var(--accent)';
                   }
                 }}
               >

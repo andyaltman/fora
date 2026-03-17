@@ -36,7 +36,17 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
 
   return (
     <div>
-      <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: '600' }}>Travelers</h2>
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.6rem',
+          fontWeight: '400',
+          color: 'var(--text-primary)',
+          marginBottom: '1.5rem',
+        }}
+      >
+        Who is Traveling?
+      </h2>
 
       <div style={{ marginBottom: '1.5rem' }}>
         <TextInput
@@ -48,8 +58,19 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Traveler Type
+        <label
+          style={{
+            display: 'block',
+            marginBottom: '0.75rem',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.68rem',
+            fontWeight: '600',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'var(--text-sage)',
+          }}
+        >
+          TRAVELER TYPE
         </label>
         <PillGrid>
           {travelerTypes.map((type) => (
@@ -65,8 +86,19 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
 
       {showAdults && (
         <div style={{ marginBottom: '1rem' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-            Number of Adults
+          <label
+            style={{
+              display: 'block',
+              marginBottom: '0.5rem',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.68rem',
+              fontWeight: '600',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--text-sage)',
+            }}
+          >
+            NUMBER OF ADULTS
           </label>
           <input
             type="number"
@@ -75,13 +107,15 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
             onChange={(e) => onChange({ adults: parseInt(e.target.value) || 0 })}
             style={{
               width: '100%',
-              padding: '0.75rem 1rem',
+              minWidth: '80px',
+              padding: '11px 14px',
               borderRadius: '8px',
               border: '1px solid var(--border-default)',
-              background: 'var(--bg-card)',
+              background: 'rgba(255,255,255,0.06)',
               color: 'var(--text-primary)',
               fontSize: '0.875rem',
-              fontFamily: 'system-ui, sans-serif',
+              fontFamily: 'var(--font-body)',
+              fontWeight: '300',
             }}
           />
         </div>
@@ -89,8 +123,19 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
 
       {showChildren && (
         <div style={{ marginBottom: '1rem' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-            Number of Children
+          <label
+            style={{
+              display: 'block',
+              marginBottom: '0.5rem',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.68rem',
+              fontWeight: '600',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--text-sage)',
+            }}
+          >
+            NUMBER OF CHILDREN
           </label>
           <input
             type="number"
@@ -99,13 +144,15 @@ export default function StepTravelers({ travelers, onChange }: StepTravelersProp
             onChange={(e) => onChange({ children: parseInt(e.target.value) || 0 })}
             style={{
               width: '100%',
-              padding: '0.75rem 1rem',
+              minWidth: '80px',
+              padding: '11px 14px',
               borderRadius: '8px',
               border: '1px solid var(--border-default)',
-              background: 'var(--bg-card)',
+              background: 'rgba(255,255,255,0.06)',
               color: 'var(--text-primary)',
               fontSize: '0.875rem',
-              fontFamily: 'system-ui, sans-serif',
+              fontFamily: 'var(--font-body)',
+              fontWeight: '300',
             }}
           />
         </div>

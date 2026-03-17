@@ -21,20 +21,39 @@ export default function TextInput({
 }: TextInputProps) {
   const baseStyle = {
     width: '100%',
-    padding: '0.75rem 1rem',
+    padding: '11px 14px',
     borderRadius: '8px',
     border: error ? '1px solid var(--accent)' : '1px solid var(--border-default)',
-    background: 'var(--bg-card)',
+    background: 'rgba(255,255,255,0.06)',
     color: 'var(--text-primary)',
     fontSize: '0.875rem',
-    fontFamily: 'system-ui, sans-serif',
+    fontFamily: 'var(--font-body)',
+    fontWeight: '300',
     outline: 'none',
-    transition: 'border-color 0.2s',
+    transition: 'border-color 0.15s, box-shadow 0.15s',
   };
+
+  const focusStyle = error
+    ? {}
+    : {
+        borderColor: 'var(--accent)',
+        boxShadow: '0 0 0 3px rgba(255,110,0,0.12)',
+      };
 
   return (
     <div style={{ marginBottom: '1rem' }}>
-      <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+      <label
+        style={{
+          display: 'block',
+          marginBottom: '0.5rem',
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.68rem',
+          fontWeight: '600',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: 'var(--text-sage)',
+        }}
+      >
         {label}
         {required && <span style={{ color: 'var(--accent)' }}> *</span>}
       </label>
@@ -49,10 +68,15 @@ export default function TextInput({
             resize: 'vertical',
           }}
           onFocus={(e) => {
-            if (!error) e.currentTarget.style.borderColor = 'var(--hover-border)';
+            if (!error) {
+              Object.assign(e.currentTarget.style, focusStyle);
+            }
           }}
           onBlur={(e) => {
-            if (!error) e.currentTarget.style.borderColor = 'var(--border-default)';
+            if (!error) {
+              e.currentTarget.style.borderColor = 'var(--border-default)';
+              e.currentTarget.style.boxShadow = 'none';
+            }
           }}
         />
       ) : (
@@ -63,15 +87,27 @@ export default function TextInput({
           placeholder={placeholder}
           style={baseStyle}
           onFocus={(e) => {
-            if (!error) e.currentTarget.style.borderColor = 'var(--hover-border)';
+            if (!error) {
+              Object.assign(e.currentTarget.style, focusStyle);
+            }
           }}
           onBlur={(e) => {
-            if (!error) e.currentTarget.style.borderColor = 'var(--border-default)';
+            if (!error) {
+              e.currentTarget.style.borderColor = 'var(--border-default)';
+              e.currentTarget.style.boxShadow = 'none';
+            }
           }}
         />
       )}
       {error && (
-        <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--accent)' }}>
+        <div
+          style={{
+            marginTop: '0.5rem',
+            fontSize: '0.75rem',
+            color: 'var(--accent)',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
           {error}
         </div>
       )}

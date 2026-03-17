@@ -25,7 +25,7 @@ export default function StepConfirmation() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const colors = ['#c64b00', '#ffffff', '#f0a500', '#2a5054', '#ff6b6b'];
+    const colors = ['#FF6E00', '#FAF8F4', '#f0a500', '#2a5054', '#ff6b6b'];
     const particles: Particle[] = [];
 
     // Create particles
@@ -89,10 +89,36 @@ export default function StepConfirmation() {
         }}
       />
       <div style={{ position: 'relative', zIndex: 2 }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontWeight: '600' }}>
-          Enquiry received! 🎉
+        <h2
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '2rem',
+            fontWeight: '400',
+            color: 'var(--text-primary)',
+            marginBottom: '1rem',
+          }}
+        >
+          Enquiry Received
         </h2>
-        <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+        <div
+          style={{
+            width: '40px',
+            height: '2px',
+            background: 'var(--accent)',
+            margin: '0 auto 1rem',
+          }}
+        />
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.9rem',
+            fontWeight: '300',
+            color: 'var(--text-muted)',
+            lineHeight: '1.6',
+            maxWidth: '420px',
+            margin: '0 auto',
+          }}
+        >
           We&apos;ll send a confirmation email shortly. Your Travel Designer will be in touch within 1–2 business days.
         </p>
       </div>

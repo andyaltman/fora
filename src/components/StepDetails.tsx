@@ -10,7 +10,17 @@ interface StepDetailsProps {
 export default function StepDetails({ contact, onChange, error }: StepDetailsProps) {
   return (
     <div>
-      <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: '600' }}>Contact Details</h2>
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.6rem',
+          fontWeight: '400',
+          color: 'var(--text-primary)',
+          marginBottom: '1.5rem',
+        }}
+      >
+        Contact Details
+      </h2>
 
       <TextInput
         label="Name"

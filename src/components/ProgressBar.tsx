@@ -3,22 +3,42 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ currentStep }: ProgressBarProps) {
-  const segments = [1, 2, 3, 4];
+  const totalSteps = 4;
+  const progress = (currentStep / totalSteps) * 100;
 
   return (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-      {segments.map((segment) => (
+    <div style={{ width: '100%' }}>
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.62rem',
+          fontWeight: '600',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--text-sage)',
+          marginBottom: '0.5rem',
+          textAlign: 'center',
+        }}
+      >
+        STEP {currentStep} OF {totalSteps}
+      </div>
+      <div
+        style={{
+          height: '3px',
+          background: 'rgba(255,255,255,0.12)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         <div
-          key={segment}
           style={{
-            width: '40px',
-            height: '4px',
-            borderRadius: '2px',
-            background: currentStep >= segment ? 'var(--accent)' : 'var(--border-default)',
-            transition: 'background 0.3s',
+            height: '100%',
+            background: 'var(--accent)',
+            width: `${progress}%`,
+            transition: 'width 0.3s ease',
           }}
         />
-      ))}
+      </div>
     </div>
   );
 }
