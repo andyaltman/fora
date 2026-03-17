@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  basePath: '/foraenquiry',
+  // Allow images served from the app itself
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
