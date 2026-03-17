@@ -10,11 +10,11 @@ export async function submitEnquiry(state: FormState, itinerary: string): Promis
     submittedAt: new Date().toISOString(),
   };
 
-  const res = await fetch('https://hooks.zapier.com/hooks/catch/7993579/up6qc9d/', {
+  const res = await fetch('/api/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error(`Webhook failed: ${res.status}`);
+  if (!res.ok) throw new Error(`Submission failed: ${res.status}`);
 }
