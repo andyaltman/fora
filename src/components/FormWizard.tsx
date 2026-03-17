@@ -94,6 +94,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
 
   return (
     <div
+      className={`form-outer${destination.bgImage ? ' bg-fixed' : ''}`}
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -119,6 +120,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
         }} />
       )}
       <div
+        className="form-card"
         style={{
           position: 'relative',
           zIndex: 1,

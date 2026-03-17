@@ -66,6 +66,7 @@ const row = (label: string, value: string, isLast = false) => (
       fontWeight: '300',
       color: 'var(--text-primary)',
       textAlign: 'right',
+      wordBreak: 'break-word',
     }}>
       {value}
     </span>

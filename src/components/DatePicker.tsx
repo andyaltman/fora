@@ -145,12 +145,14 @@ export default function DatePicker({ label, value, onChange, min }: DatePickerPr
     position: 'absolute',
     top: 'calc(100% + 6px)',
     left: 0,
+    right: 0,
     zIndex: 200,
     background: '#1a4a4e',
     border: '1px solid var(--border-hover)',
     borderRadius: '10px',
     padding: '1rem',
     width: '280px',
+    maxWidth: 'calc(100vw - 2rem)',
     boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
   };
 

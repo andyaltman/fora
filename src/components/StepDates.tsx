@@ -190,6 +190,7 @@ export default function StepDates({ dates, onChange, subtitle = 'Help us plan th
               {years.map((year) => (
                 <button
                   key={year}
+                  className="year-pill"
                   onClick={() => handleYearSelect(year)}
                   style={{
                     flex: 1,

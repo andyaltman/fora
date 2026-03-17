@@ -7,6 +7,7 @@ interface PillGridProps {
 export default function PillGrid({ children }: PillGridProps) {
   return (
     <div
+      className="pill-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',

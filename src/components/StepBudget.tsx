@@ -57,7 +57,7 @@ export default function StepBudget({ budget, onChange }: StepBudgetProps) {
 
       <div style={{ marginBottom: '1.75rem' }}>
         <label style={microLabel}>PER PERSON BUDGET</label>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+        <div className="budget-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
           {budgetRanges.map((range) => (
             <PillButton
               key={range}
