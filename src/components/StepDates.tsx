@@ -1,6 +1,7 @@
 import type { TravelDates } from '@/types/form';
 import PillButton from './PillButton';
 import PillGrid from './PillGrid';
+import DatePicker from './DatePicker';
 
 interface StepDatesProps {
   dates: TravelDates;
@@ -49,19 +50,6 @@ export default function StepDates({ dates, onChange, subtitle = 'Help us plan th
 
   const handleUndecided = () => {
     onChange({ undecided: true, year: null, months: [] });
-  };
-
-  const dateInputStyle = {
-    width: '100%',
-    padding: '11px 14px',
-    borderRadius: '8px',
-    border: '1px solid var(--border-default)',
-    background: 'rgba(255,255,255,0.06)',
-    color: 'var(--text-primary)',
-    fontSize: '0.875rem',
-    fontFamily: 'var(--font-body)',
-    fontWeight: '300' as const,
-    outline: 'none',
   };
 
   const microLabel = {
@@ -156,25 +144,18 @@ export default function StepDates({ dates, onChange, subtitle = 'Help us plan th
           >
             ← change
           </button>
-          <div style={{ display: 'grid', gap: '1rem' }}>
-            <div>
-              <label style={{ ...microLabel, textAlign: 'left' }}>START DATE</label>
-              <input
-                type="date"
-                value={dates.startDate}
-                onChange={(e) => onChange({ startDate: e.target.value })}
-                style={dateInputStyle}
-              />
-            </div>
-            <div>
-              <label style={{ ...microLabel, textAlign: 'left' }}>END DATE</label>
-              <input
-                type="date"
-                value={dates.endDate}
-                onChange={(e) => onChange({ endDate: e.target.value })}
-                style={dateInputStyle}
-              />
-            </div>
+          <div style={{ display: 'grid', gap: '1.25rem' }}>
+            <DatePicker
+              label="Start Date"
+              value={dates.startDate}
+              onChange={(v) => onChange({ startDate: v })}
+            />
+            <DatePicker
+              label="End Date"
+              value={dates.endDate}
+              onChange={(v) => onChange({ endDate: v })}
+              min={dates.startDate || undefined}
+            />
           </div>
         </div>
       )}
