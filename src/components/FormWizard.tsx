@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { useFormState } from '@/hooks/useFormState';
 import { submitEnquiry } from '@/lib/submitEnquiry';
 import ProgressBar from './ProgressBar';
@@ -118,18 +119,15 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
               marginBottom: '2rem',
             }}
           >
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.4rem',
-                fontWeight: '400',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'var(--text-primary)',
-                textAlign: 'center',
-              }}
-            >
-              FORA
+            <div style={{ textAlign: 'center' }}>
+              <Image
+                src="/itrvl-wilderness-logo.png"
+                alt="itrvl × Wilderness"
+                width={320}
+                height={60}
+                style={{ maxWidth: '100%', height: 'auto', opacity: 0.92 }}
+                priority
+              />
             </div>
             <ProgressBar currentStep={currentStep} />
           </div>
