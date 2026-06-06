@@ -3,6 +3,7 @@ import type { FormState } from '@/types/form';
 export async function submitEnquiry(state: FormState, itinerary: string): Promise<void> {
   const payload = {
     itinerary,
+    destination: state.destination,
     travelDates: state.travelDates,
     travelers: state.travelers,
     budget: state.budget,

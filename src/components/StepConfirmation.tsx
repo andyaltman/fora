@@ -29,6 +29,19 @@ function formatDates(dates: FormState['travelDates']): string {
   return parts.join(' · ') || '—';
 }
 
+// Title-case a destination label stored in uppercase, e.g. "SOUTH AFRICA" → "South Africa".
+function titleCase(label: string): string {
+  return label
+    .toLowerCase()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function formatDestination(d: FormState['destination']): string {
+  if (d.undecided) return 'Undecided';
+  if (d.selected.length) return d.selected.map(titleCase).join(', ');
+  return '';
+}
+
 function formatTravelers(t: FormState['travelers']): string {
   const parts: string[] = [];
   parts.push(`${t.adults} adult${t.adults !== 1 ? 's' : ''}`);
@@ -121,10 +134,14 @@ export default function StepConfirmation({
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  const { travelDates, travelers, budget, contact } = formState;
+  const { destination, travelDates, travelers, budget, contact } = formState;
+
+  // Prefer the themed label from a ?itinerary= param; otherwise show the
+  // destinations chosen on the in-form destination step.
+  const destinationValue = destinationLabel || formatDestination(destination);
 
   const rows: Array<[string, string]> = [
-    ...(destinationLabel ? [['Destination', destinationLabel] as [string, string]] : []),
+    ...(destinationValue ? [['Destination', destinationValue] as [string, string]] : []),
     ['Dates', formatDates(travelDates)],
     ['Party', travelers.partyName],
     ['Travelers', formatTravelers(travelers)],

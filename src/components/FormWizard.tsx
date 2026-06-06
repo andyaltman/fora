@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { useFormState } from '@/hooks/useFormState';
 import { submitEnquiry } from '@/lib/submitEnquiry';
 import { getDestination } from '@/lib/destinations';
+import type { StepKey } from '@/types/form';
 import ProgressBar from './ProgressBar';
+import StepDestination from './StepDestination';
 import StepDates from './StepDates';
 import StepTravelers from './StepTravelers';
 import StepBudget from './StepBudget';
@@ -17,26 +19,38 @@ interface FormWizardProps {
 
 export default function FormWizard({ itinerary }: FormWizardProps) {
   const destination = getDestination(itinerary);
-  const [currentStep, setCurrentStep] = useState(1);
+
+  // The destination-selection step only appears when no ?itinerary= param is
+  // supplied; with a param the destination is already known.
+  const stepKeys: StepKey[] = itinerary
+    ? ['dates', 'travelers', 'budget', 'details']
+    : ['destination', 'dates', 'travelers', 'budget', 'details'];
+
+  const [stepIndex, setStepIndex] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { state, dispatch, validate } = useFormState();
 
+  const currentKey = stepKeys[stepIndex];
+  const isLastInputStep = stepIndex === stepKeys.length - 1;
+  const isFirstStep = stepIndex === 0;
+
   const handleNext = async () => {
     setError(null);
-    const validationError = validate(currentStep);
+    const validationError = validate(currentKey);
 
     if (validationError) {
       setError(validationError);
       return;
     }
 
-    if (currentStep === 4) {
+    if (isLastInputStep) {
       // Submit the form
       setIsSubmitting(true);
       try {
         await submitEnquiry(state, itinerary);
-        setCurrentStep(5);
+        setSubmitted(true);
       } catch (err) {
         setError('Failed to submit enquiry. Please try again.');
         console.error(err);
@@ -44,18 +58,35 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
         setIsSubmitting(false);
       }
     } else {
-      setCurrentStep((prev) => prev + 1);
+      setStepIndex((prev) => prev + 1);
     }
   };
 
   const handleBack = () => {
     setError(null);
-    setCurrentStep((prev) => prev - 1);
+    setStepIndex((prev) => prev - 1);
   };
 
   const renderStep = () => {
-    switch (currentStep) {
-      case 1:
+    if (submitted) {
+      return (
+        <StepConfirmation
+          confirmClose={destination.confirmClose}
+          formState={state}
+          destinationLabel={destination.label}
+        />
+      );
+    }
+
+    switch (currentKey) {
+      case 'destination':
+        return (
+          <StepDestination
+            destination={state.destination}
+            onChange={(payload) => dispatch({ type: 'SET_DESTINATION', payload })}
+          />
+        );
+      case 'dates':
         return (
           <StepDates
             dates={state.travelDates}
@@ -63,21 +94,21 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
             subtitle={destination.subtitle}
           />
         );
-      case 2:
+      case 'travelers':
         return (
           <StepTravelers
             travelers={state.travelers}
             onChange={(payload) => dispatch({ type: 'SET_TRAVELERS', payload })}
           />
         );
-      case 3:
+      case 'budget':
         return (
           <StepBudget
             budget={state.budget}
             onChange={(payload) => dispatch({ type: 'SET_BUDGET', payload })}
           />
         );
-      case 4:
+      case 'details':
         return (
           <StepDetails
             contact={state.contact}
@@ -85,8 +116,6 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
             error={error || undefined}
           />
         );
-      case 5:
-        return <StepConfirmation confirmClose={destination.confirmClose} formState={state} destinationLabel={destination.label} />;
       default:
         return null;
     }
@@ -138,7 +167,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           backdropFilter: destination.bgImage ? 'blur(2px)' : 'none',
         }}
       >
-        {currentStep < 5 && (
+        {!submitted && (
           <div
             style={{
               display: 'flex',
@@ -172,7 +201,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                 </div>
               )}
             </div>
-            <ProgressBar currentStep={currentStep} />
+            <ProgressBar currentStep={stepIndex + 1} totalSteps={stepKeys.length} />
           </div>
         )}
 
@@ -180,9 +209,9 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
           {renderStep()}
         </div>
 
-        {currentStep < 5 && (
+        {!submitted && (
           <>
-            {error && currentStep !== 4 && (
+            {error && currentKey !== 'details' && (
               <div
                 style={{
                   marginTop: '1rem',
@@ -206,7 +235,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                 justifyContent: 'space-between',
               }}
             >
-              {currentStep > 1 && (
+              {!isFirstStep && (
                 <button
                   onClick={handleBack}
                   disabled={isSubmitting}
@@ -243,7 +272,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                 onClick={handleNext}
                 disabled={isSubmitting}
                 style={{
-                  flex: currentStep === 1 ? 1 : 0,
+                  flex: isFirstStep ? 1 : 0,
                   background: 'var(--accent)',
                   color: '#FAF8F4',
                   border: 'none',
@@ -255,7 +284,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                   letterSpacing: '0.04em',
                   cursor: isSubmitting ? 'not-allowed' : 'pointer',
                   transition: 'background 0.15s',
-                  marginLeft: currentStep === 1 ? 0 : 'auto',
+                  marginLeft: isFirstStep ? 0 : 'auto',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitting) {
@@ -268,7 +297,7 @@ export default function FormWizard({ itinerary }: FormWizardProps) {
                   }
                 }}
               >
-                {isSubmitting ? 'SUBMITTING...' : currentStep === 4 ? 'SUBMIT' : 'NEXT'}
+                {isSubmitting ? 'SUBMITTING...' : isLastInputStep ? 'SUBMIT' : 'NEXT'}
               </button>
             </div>
           </>

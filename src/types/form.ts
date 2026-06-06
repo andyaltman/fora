@@ -26,14 +26,25 @@ export interface Contact {
   notes: string;
 }
 
+export interface Destination {
+  selected: string[];   // multi-select list of destination labels
+  undecided: boolean;   // "I haven't decided yet" — mutually exclusive with selected
+}
+
 export interface FormState {
+  destination: Destination;
   travelDates: TravelDates;
   travelers: Travelers;
   budget: Budget;
   contact: Contact;
 }
 
+// Keys identifying each input step. The 'destination' step only appears when
+// no ?itinerary= param is supplied; otherwise the destination is already known.
+export type StepKey = 'destination' | 'dates' | 'travelers' | 'budget' | 'details';
+
 export type FormAction =
+  | { type: 'SET_DESTINATION'; payload: Partial<Destination> }
   | { type: 'SET_TRAVEL_DATES'; payload: Partial<TravelDates> }
   | { type: 'SET_TRAVELERS'; payload: Partial<Travelers> }
   | { type: 'SET_BUDGET'; payload: Partial<Budget> }

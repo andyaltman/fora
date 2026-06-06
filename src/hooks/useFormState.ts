@@ -1,7 +1,11 @@
 import { useReducer } from 'react';
-import type { FormState, FormAction } from '@/types/form';
+import type { FormState, FormAction, StepKey } from '@/types/form';
 
 const initialState: FormState = {
+  destination: {
+    selected: [],
+    undecided: false,
+  },
   travelDates: {
     hasFixedDates: null,
     startDate: '',
@@ -30,6 +34,11 @@ const initialState: FormState = {
 
 function formReducer(state: FormState, action: FormAction): FormState {
   switch (action.type) {
+    case 'SET_DESTINATION':
+      return {
+        ...state,
+        destination: { ...state.destination, ...action.payload },
+      };
     case 'SET_TRAVEL_DATES':
       return {
         ...state,
@@ -60,9 +69,16 @@ function formReducer(state: FormState, action: FormAction): FormState {
 export function useFormState() {
   const [state, dispatch] = useReducer(formReducer, initialState);
 
-  const validate = (step: number): string | null => {
+  const validate = (step: StepKey): string | null => {
     switch (step) {
-      case 1: {
+      case 'destination': {
+        const { selected, undecided } = state.destination;
+        if (!undecided && selected.length === 0) {
+          return 'Please select a destination, or mark as undecided';
+        }
+        return null;
+      }
+      case 'dates': {
         const { hasFixedDates, startDate, endDate, year, months, undecided } = state.travelDates;
         if (hasFixedDates === null) {
           return 'Please select when the client would like to travel';
@@ -78,7 +94,7 @@ export function useFormState() {
         }
         return null;
       }
-      case 2: {
+      case 'travelers': {
         const { partyName, types, adults } = state.travelers;
         if (!partyName.trim()) {
           return 'Please enter a party name';
@@ -91,7 +107,7 @@ export function useFormState() {
         }
         return null;
       }
-      case 3: {
+      case 'budget': {
         const { perPerson, tier } = state.budget;
         if (!perPerson) {
           return 'Please select a budget range';
@@ -101,7 +117,7 @@ export function useFormState() {
         }
         return null;
       }
-      case 4: {
+      case 'details': {
         const { name, email } = state.contact;
         if (!name) {
           return 'Please enter your name';
